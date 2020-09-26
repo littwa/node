@@ -1,62 +1,45 @@
 const fs = require("fs");
+const { promises: fsPromises } = fs;
 const path = require("path");
 const contactsPath = path.join(__dirname, "./db/contacts.json");
 
-function listContacts() {
-  fs.readFile(contactsPath, "utf-8", (err, data) => {
-    console.table(JSON.parse(data));
-  });
+async function listContacts() {
+  let data = await fsPromises.readFile(contactsPath, "utf-8");
+  console.table(JSON.parse(data));
 }
 
-function getContactById(contactId) {
-  fs.readFile(contactsPath, "utf-8", (err, data) => {
-    let contactsObj = JSON.parse(data);
-    let findEl = contactsObj.find(el => el.id === contactId);
-    console.table(findEl);
-  });
+async function getContactById(contactId) {
+  const data = await fsPromises.readFile(contactsPath, "utf-8");
+  let contactsObj = JSON.parse(data);
+  let findEl = contactsObj.find((el) => el.id === contactId);
+  console.table(findEl);
 }
 
-function removeContact(contactId) {
-  fs.readFile(contactsPath, "utf-8", (err, data) => {
-    let contactsObj = JSON.parse(data);
-    let withoutContactId = contactsObj.filter(el => el.id !== contactId);
+async function removeContact(contactId) {
+  let data = await fsPromises.readFile(contactsPath, "utf-8");
 
-    if (contactsObj.length === withoutContactId.length) {
-      console.log("NO contactId-" + contactId);
-      return;
-    }
-    let newContactsJSON = JSON.stringify(withoutContactId);
+  let contactsObj = JSON.parse(data);
+  let withoutContactId = contactsObj.filter((el) => el.id !== contactId);
 
-    fs.writeFile(contactsPath, newContactsJSON, err => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-      console.log("Contacts with id: " + contactId + " has been successfully removed!");
-      console.table(withoutContactId);
-    });
-  });
+  contactsObj.length === withoutContactId.length && console.log("NO contactId-" + contactId);
+  let newContactsJSON = JSON.stringify(withoutContactId);
+
+  await fsPromises.writeFile(contactsPath, newContactsJSON);
+  console.log("Contacts with id: " + contactId + " has been successfully removed!");
 }
 
-function addContact(name, email, phone) {
-  fs.readFile(contactsPath, "utf-8", (err, data) => {
-    let contactsObj = JSON.parse(data);
-    let newId = contactsObj.reduce((acc, el) => (el.id > acc ? el.id : acc), 0) + 1;
+async function addContact(name, email, phone) {
+  let data = await fsPromises.readFile(contactsPath, "utf-8");
+  let contactsObj = JSON.parse(data);
+  let newId = contactsObj.reduce((acc, el) => (el.id > acc ? el.id : acc), 0) + 1;
+  contactsObj.push({ id: newId, name, email, phone });
 
-    let newContact = { id: newId, name, email, phone };
-    contactsObj.push(newContact);
+  let newContactsJSON = JSON.stringify(contactsObj);
 
-    let newContactsJSON = JSON.stringify(contactsObj);
+  await fsPromises.writeFile(contactsPath, newContactsJSON);
 
-    fs.writeFile(contactsPath, newContactsJSON, err => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-      console.log("Contact with id: " + newId + " has been successfully added!");
-      console.table(contactsObj);
-    });
-  });
+  console.log("Contact with id: " + newId + " has been successfully added!");
+  console.table(contactsObj);
 }
 
 module.exports = {
