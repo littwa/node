@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "devex": "nodemon example.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,8 @@
     "nodemon": "^2.0.4"
   },
   "dependencies": {
+    "express": "^4.17.1",
+    "joi": "^17.2.1",
     "yargs": "^16.0.3"
   }
 }
