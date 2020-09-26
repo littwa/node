@@ -20,6 +20,7 @@ app.get(
     });
     //console.log("weatherRul: ", weatherRul);
     //console.log("req.query: ", req.query);
+    //
     let valid = weatherRul.validate(req.query);
     //console.log("d: ", valid);
 
