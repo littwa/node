@@ -3,6 +3,9 @@ const Joi = require("joi");
 
 const app = express();
 const PORT = 3000;
+// process.env.TTTTTTTT = 111111111111111; // работает
+
+// console.log(process.env);
 
 app.use(express.json());
 
@@ -19,7 +22,8 @@ app.get(
       lon: Joi.string().required(),
     });
     //console.log("weatherRul: ", weatherRul);
-    //console.log("req.query: ", req.query);
+    console.log("req.query: ", req.query);
+    console.log("req.body: ", req.body);
     //
     let valid = weatherRul.validate(req.query);
     //console.log("d: ", valid);
@@ -31,8 +35,10 @@ app.get(
     next();
   },
   (req, res, next) => {
-    //console.log("req.query: ", req.query);
-    res.json({ weather: "test" });
+    console.log("req.query: ", req.query);
+
+    res.json({ weather: "test+" });
+    // res.send({ weather: "test+" });
   }
 );
 

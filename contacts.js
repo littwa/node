@@ -6,6 +6,9 @@ const contactsPath = path.join(__dirname, "./db/contacts.json");
 async function listContacts() {
   let data = await fsPromises.readFile(contactsPath, "utf-8");
   console.table(JSON.parse(data));
+  // console.log(data);
+
+  return data;
 }
 
 async function getContactById(contactId) {
