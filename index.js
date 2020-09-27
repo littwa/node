@@ -10,17 +10,23 @@ const app = express();
 
 app.use(morgan("combined"));
 
-app.get("/api/contacts", (req, res, next) => {
-  (async function () {
-    let data = await listContacts();
-    res.send(JSON.parse(data));
-  })();
+// let fff = async (req, res, next) => res.send(JSON.parse(await listContacts()));
+// let data = await listContacts();
 
-  //-----------then-----------------------
-  // listContacts().then((r) => {
-  //   res.send(JSON.parse(r));
-  // });
-});
+app.get("/api/contacts", async (req, res, next) => res.send(JSON.parse(await listContacts())));
+
+// app.get("/api/contacts", (req, res, next) => {
+//   (async function () {
+//     let data = await listContacts();
+//     res.send(JSON.parse(data));
+//   })();
+
+//   //-----------then-----------------------
+//   // listContacts().then((r) => {
+//   //   res.send(JSON.parse(r));
+//   // });
+// });
+
 app.listen(3000, () => console.log("Started Port ", 3000));
 
 //==================================================================
