@@ -15,7 +15,8 @@ async function getContactById(contactId) {
   const data = await fsPromises.readFile(contactsPath, "utf-8");
   let contactsObj = JSON.parse(data);
   let findEl = contactsObj.find((el) => el.id === contactId);
-  console.table(findEl);
+  console.log(findEl);
+  return findEl;
 }
 
 async function removeContact(contactId) {

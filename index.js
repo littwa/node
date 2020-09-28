@@ -1,19 +1,26 @@
+const express = require("express");
+const app = express();
+
 const path = require("path");
 const argv = require("yargs").argv;
 const { listContacts, getContactById, removeContact, addContact } = require("./contacts.js");
 
-const express = require("express");
-const morgan = require("morgan");
-// console.log(morgan);
+const cors = require("cors");
 
-const app = express();
+const morgan = require("morgan");
+
+const userRouter = require("./app/routers");
 
 app.use(morgan("combined"));
+
+app.use("/api", userRouter);
+
+// console.log(userRouter);
 
 // let fff = async (req, res, next) => res.send(JSON.parse(await listContacts()));
 // let data = await listContacts();
 
-app.get("/api/contacts", async (req, res, next) => res.send(JSON.parse(await listContacts())));
+// app.get("/api/contacts", async (req, res, next) => res.send(JSON.parse(await listContacts())));
 
 // app.get("/api/contacts", (req, res, next) => {
 //   (async function () {
