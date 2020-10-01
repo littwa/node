@@ -17,10 +17,9 @@ const morgan = require("morgan");
 const userRouter = require("./app/routers");
 
 class UsServer {
-  // constructor() {
-  //   this.app = null;
-  // }
-  // app = null;
+  constructor() {
+    this.app = null;
+  }
 
   startServer() {
     this.initServer();
