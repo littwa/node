@@ -3,9 +3,10 @@ const Joi = require("joi");
 
 const app = express();
 const PORT = 3000;
-// process.env.TTTTTTTT = 111111111111111; // работает
+require("dotenv").config();
 
-// console.log(process.env);
+// process.env.TTTTTTTT = 111111111111111; // работает
+console.log(process.env);
 
 app.use(express.json());
 
@@ -39,7 +40,7 @@ app.get(
 
     res.json({ weather: "test+" });
     // res.send({ weather: "test+" });
-  }
+  },
 );
 
 app.listen(PORT, () => console.log("Started Port ", PORT));
