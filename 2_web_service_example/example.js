@@ -20,7 +20,7 @@ app.get(
   (req, res, next) => {
     const weatherRules = Joi.object({
       lat: Joi.string().required(),
-      lon: Joi.string().required()
+      lon: Joi.string().required(),
     });
 
     const validationResult = Joi.validate(req.query, weatherRules);
@@ -34,9 +34,10 @@ app.get(
   (req, res, next) => {
     console.log("req.query", req.query);
     res.json({ weather: "test" });
-  }
+  },
 );
 
 app.listen(PORT, () => {
   console.log("Started listening on port", PORT);
 });
+//we
