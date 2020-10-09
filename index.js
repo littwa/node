@@ -42,9 +42,7 @@ class ContactsServer {
   }
 
   listenServer() {
-    this.server.listen(process.env.PORT, () =>
-      console.log("Success listen port:" + process.env.PORT),
-    );
+    this.server.listen(process.env.PORT, () => console.log("Success listen port:" + process.env.PORT));
   }
 }
 new ContactsServer().startServer();
