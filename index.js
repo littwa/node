@@ -54,6 +54,10 @@
 const express = require("express");
 const serv = express();
 serv.listen(3000, () => console.log("start server"));
-const useRout = express.Router();
-serv.use("", useRout);
-serv.get("/", (req, res, next) => res.send("Yra!"));
+
+//---------- with Router-------------------------------------------------
+// const useRouter = express.Router();
+// serv.use("", useRouter);
+// useRouter.get("/test", (req, res, next) => res.send("Yra!"));
+
+serv.get("/test", (req, res, next) => res.send("Yra!"));
