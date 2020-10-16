@@ -3,6 +3,7 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const userRouter = require("./app/contacts/routers");
+const musicRouter = require("./app/music/model.routers");
 
 require("dotenv").config();
 
@@ -23,11 +24,12 @@ class ContactsServer {
   }
   initMiddleware() {
     this.server.use(morgan("combined"));
+    // this.server.use(express.urlencoded());
     this.server.use(express.json());
     this.server.use(cors());
   }
   initRoutes() {
-    this.server.use("/api", userRouter);
+    this.server.use("/api", userRouter, musicRouter);
   }
 
   async initDatabase() {
