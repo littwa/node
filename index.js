@@ -56,7 +56,8 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const userRouter = require("./app/contacts/routers");
-const musicRouter = require("./app/music/model.routers");
+const userRouterAuth = require("./app/users/routers.users");
+const musicRouter = require("./app/music/routers.music");
 
 require("dotenv").config();
 
@@ -82,7 +83,7 @@ class ContactsServer {
     this.server.use(cors());
   }
   initRoutes() {
-    this.server.use("/api", userRouter, musicRouter);
+    this.server.use("/api", userRouter, musicRouter, userRouterAuth);
   }
 
   async initDatabase() {
