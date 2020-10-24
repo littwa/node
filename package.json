@@ -20,7 +20,9 @@
   },
   "homepage": "https://github.com/littwa/node-goit-hw#readme",
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "should": "^13.2.3",
+    "sinon": "^9.2.0"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
@@ -29,6 +31,7 @@
     "express": "^4.17.1",
     "imagemin": "^7.0.1",
     "imagemin-jpegtran": "^7.0.0",
+    "imagemin-pngquant": "^9.0.1",
     "joi": "^17.2.1",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.6.2",
