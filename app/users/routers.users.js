@@ -24,5 +24,6 @@ userRouter.patch(
   controllers.imageMini,
   controllers.updateUser,
 );
+userRouter.get("/auth/verify/:token", controllers.verificationUser);
 
 module.exports = userRouter;
