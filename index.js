@@ -50,4 +50,6 @@ module.exports = class ContactsServer {
   }
 };
 
+// module.exports = ContactsServer;
+
 // new ContactsServer().startServer();
