@@ -1,50 +1,63 @@
-// const express = require("express");
-// const cors = require("cors");
-// const morgan = require("morgan");
-// const userRouter = require("./app/routers");
-// const app = express();
-
-// app.use(express.json());
-// app.use(cors());
-// app.use(morgan("combined"));
-// app.use("/api", userRouter);
-
-// app.listen(3000, () => console.log("Started Port", 3000));
-//=====================================================================================
 const express = require("express");
-const cors = require("cors");
-const morgan = require("morgan");
-const userRouter = require("./app/routers");
+const http = require("http");
+const socket = require("socket.io");
 
-class UsServer {
-  constructor() {
-    this.app = null;
-  }
+const app = express();
+const server = http.createServer(app);
+const io = socket(server);
 
-  startServer() {
-    this.initServer();
-    this.initGlobalMiddlaware();
-    this.initRouters();
-    this.initPortListening();
-  }
+const host = "127.0.0.1";
+const port = 5500;
 
-  initServer() {
-    this.app = express();
-  }
+const clients = [];
 
-  initGlobalMiddlaware() {
-    this.app.use(express.json());
-    this.app.use(cors());
-    this.app.use(morgan("combined"));
-  }
-  initRouters() {
-    this.app.use("/api", userRouter);
-  }
-  initPortListening() {
-    this.app.listen(3000, () => console.log("Started Port", 3000));
-  }
-}
+io.on("connection", socket => {
+  const socketId = socket.id;
 
-// UsServer.startServer();
+  // console.log(`Client with id: ${socketId} was connected`);
+  socket.broadcast.emit("message", `Client with id: ${socketId} was connected`);
 
-new UsServer().startServer();
+  clients.push(socketId);
+
+  socket.emit("message", "I am a server!");
+
+  socket.on("message", message => {
+    // console.log("Message from Fronend", message);
+    socket.broadcast.emit("message", message);
+  });
+
+  socket.on("disconnect", () => {
+    clients.splice(clients.indexOf(socketId), 1);
+    // console.log(`Client with id ${socketId} was disconnected.`);
+    socket.broadcast.emit("message", `Client with id: ${socketId} was disconnected`);
+  });
+});
+
+app.use(express.static(__dirname));
+
+app.get("/", (req, res) => res.sendFile("index.html"));
+
+// app.get("/clients", (req, res) => {
+//   res.json({
+//     clients: io.clients().server.engine.clientsCount,
+//   });
+// });
+
+// app.post("/client/:id", (req, res) => {
+//   // console.log(clients);
+
+//   const userId = req.params.id;
+//   if (clients.indexOf(userId) !== -1) {
+//     io.sockets.connected[userId].emit("private message", `Message to client with id ${userId}`);
+
+//     return res.json({
+//       message: `Message send to client with id ${userId}`,
+//     });
+//   } else {
+//     return res.status(404).json({ message: "User was not found" });
+//   }
+// });
+
+server.listen(port, host, () => {
+  console.log(`Server listens http://${host}:${port}`);
+});

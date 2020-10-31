@@ -1,33 +1,17 @@
 {
-  "name": "01-node-basics",
+  "name": "socket-example",
   "version": "1.0.0",
-  "description": "goit-hw-01-node-basics",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "devex": "nodemon example.js"
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/littwa/node-goit-hw.git"
-  },
-  "author": "Yurii Litovchenko",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/littwa/node-goit-hw/issues"
-  },
-  "homepage": "https://github.com/littwa/node-goit-hw#readme",
-  "devDependencies": {
-    "nodemon": "^2.0.4"
-  },
   "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "joi": "^17.2.1",
-    "morgan": "^1.10.0",
-    "yargs": "^16.0.3"
+    "socket.io": "^2.3.0"
   }
 }

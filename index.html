@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>
+
+    <title>Socket IO</title>
+  </head>
+  <body>
+    <h2>Chat</h2>
+    <p class="we"></p>
+
+    <button onclick="sendMessageToServer()">Send message to the server</button>
+  </body>
+  <script>
+    let socket = io();
+    let d = document.querySelector(".we");
+    socket.on("message", message => {
+      console.log("Message from server: ", message);
+      let f = document.createElement("p");
+      f.insertAdjacentText("afterbegin", message);
+      d.insertAdjacentElement("beforeend", f);
+    });
+
+    // socket.on("private message", message => {
+    //   console.log("Private message from the server ", message);
+    // });
+
+    function sendMessageToServer() {
+      socket.emit("message", `${new Date().toISOString()}`);
+    }
+  </script>
+</html>
